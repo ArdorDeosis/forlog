@@ -44,4 +44,4 @@ Command | Effect | Parameters
 --- | --- | ---
 `<for\|n\|do>` | repeats `do` for `n` times | `n` needs to be a non-negative integer
 `<rnd\|min\|max>` | produces a random integer between (incl.) `min` and (excl.) `max`. | `min` and `max` need to be integers
-`<eq\|val1\|val2\|do>` or `<eq|val1|val2|do|else>` | if `val1` and `val2` are equal (string compare) it produces `do`; otherwise it produces `else`, if an `else` parameter is given | 
+`<eq\|val1\|val2\|do>` or `<eq\|val1\|val2\|do\|else>` | if `val1` and `val2` are equal (string compare) it produces `do`; otherwise it produces `else`, if an `else` parameter is given | 
