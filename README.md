@@ -51,3 +51,21 @@ Command | Effect | Parameters
 `<gt\|val1\|val2\|do>` or `<gt\|val1\|val2\|do\|else>` | if `val1` is greater than `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
 `<leq\|val1\|val2\|do>` or `<leq\|val1\|val2\|do\|else>` | if `val1` is less than or equal to `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
 `<geq\|val1\|val2\|do>` or `<geq\|val1\|val2\|do\|else>` | if `val1` is greater than or equal `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
+
+Unlike production rules, commands can be nested: `<for|<rnd|5|10>|[FANCY_RULE]>`
+
+### Preprocessing of Arguments
+Arguments in commands can be either processed before the command is executed or not. In any case, the complete outcome of the command is processed afterwards. By default every argument is preprocessed. If an argument should not be processed before the execution of the command, a tilde `~` has to be placed before it. This makes a difference especially for the `for` and `set` commands. While `<for|5|<rnd|0|100>\n>` will output the same number five times (because `<rnd|0|100>` is processed before the execution of the `for` command), `<for|5|~<rnd|0|100>\n>` will produce five (most likely) different numbers.
+
+
+## Variables
+Variables in Forlog are set by the `set` and `set?` commands. A variable is called with curly brackets `{` and `}`. A variabel that is not set can not be called and produces an error.
+```
+START_SYMBOL
+><set|color|[COLOR]>My favourite color is {color}, because {color} is beautiful.
+
+COLOR
+>red
+>green
+>blue
+```
