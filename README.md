@@ -14,6 +14,8 @@ A
 ```
 **Note**: Since Forlog files are parsed line by line, linebreaks are important. If you want a linebreak inside an outcome, you have to use `\n`.
 
+The first line sets the current rule name to `A`, the second line (starting with `>`) defines a rule outcome for the currently set Rule. If no rule is set the outcome is added to the default rule `START_SYMBOL`. A valid rule name starts with an upper case letter and only contains letters, digits and the symbols `_`, `$`, `%`, `&`, `!` and `?`.
+
 One rule can have more than one outcome. The rule `FOOD` will randomly produce one of the three defined outcomes:
 ```
 FOOD
@@ -59,7 +61,7 @@ Arguments in commands can be either processed before the command is executed or 
 
 
 ## Variables
-Variables in Forlog are set by the `set` and `set?` commands. A variable is called with curly brackets `{` and `}`. A variabel that is not set can not be called and produces an error.
+Variables in Forlog are set by the `set` and `set?` commands. A variable is called with curly brackets `{` and `}`. A variabel that is not set can not be called and produces an error. A valid variable name starts with an lower case letter and only contains letters, digits and the symbols `_`, `$`, `%`, `&`, `!` and `?`.
 ```
 START_SYMBOL
 ><set|color|[COLOR]>My favourite color is {color}, because {color} is beautiful.
