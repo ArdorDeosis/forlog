@@ -45,3 +45,7 @@ Command | Effect | Parameters
 `<for\|n\|do>` | repeats `do` for `n` times | `n` needs to be a non-negative integer
 `<rnd\|min\|max>` | produces a random integer between (incl.) `min` and (excl.) `max`. | `min` and `max` need to be integers
 `<eq\|val1\|val2\|do>` or `<eq\|val1\|val2\|do\|else>` | if `val1` and `val2` are equal (string compare) it produces `do`; otherwise it produces `else`, if an `else` parameter is given | 
+`<lt\|val1\|val2\|do>` or `<lt\|val1\|val2\|do\|else>` | if `val1` is less than `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
+`<gt\|val1\|val2\|do>` or `<gt\|val1\|val2\|do\|else>` | if `val1` is greater than `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
+`<leq\|val1\|val2\|do>` or `<leq\|val1\|val2\|do\|else>` | if `val1` is less than or equal to `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
+`<geq\|val1\|val2\|do>` or `<geq\|val1\|val2\|do\|else>` | if `val1` is greater than or equal `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
