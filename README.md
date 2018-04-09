@@ -44,6 +44,8 @@ Command | Effect | Parameters
 --- | --- | ---
 `<for\|n\|do>` | repeats `do` for `n` times | `n` needs to be a non-negative integer
 `<rnd\|min\|max>` | produces a random integer between (incl.) `min` and (excl.) `max`. | `min` and `max` need to be integers
+`<set\|varname\|value>` | sets the variable `varname` to value `value` | `varname` needs to be a valid variable name
+`<set?\|varname\|value>` | sets the variable `varname` to value `value` only if the variable with name `varname` is not set yet | `varname` needs to be a valid variable name
 `<eq\|val1\|val2\|do>` or `<eq\|val1\|val2\|do\|else>` | if `val1` and `val2` are equal (string compare) it produces `do`; otherwise it produces `else`, if an `else` parameter is given | 
 `<lt\|val1\|val2\|do>` or `<lt\|val1\|val2\|do\|else>` | if `val1` is less than `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
 `<gt\|val1\|val2\|do>` or `<gt\|val1\|val2\|do\|else>` | if `val1` is greater than `val2` it produces `do`; otherwise it produces `else`, if an `else` parameter is given | `val1` and `val2` need to be integers
