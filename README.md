@@ -28,12 +28,20 @@ START_SYMBOL
 >Today I crave for [FOOD].
 ```
 ### Outcome Weights
-Usually every outcome is picked with the same possibility. It is however possible to adjust that possibility with weights. A weight is set per outcome and has to be a positive integer. It is written with a `#` directly before the outcome: `#5>my outcome`. In this example *my outcome* is five times as likely to occure than other outcomes of that rule.
+Usually every outcome is picked with the same possibility. It is however possible to adjust that possibility with weights. A weight is set per outcome and has to be a positive integer. It is written with a number sign `#` directly before the outcome: `#5>my outcome`. In this example *my outcome* is five times as likely to occure than other outcomes of that rule.
 
 **Note**: This parser is not very sophisticated, an outcome weight simply means the outcome is added to the list of possible outcomes several times. This means that high numbers in weights will take a lot of memory and may slow down the processing.
 
 ### Combined Production Rules
-It is possible to produce call a comined production rule from defined production rules. The so created production rule containes all outcomes of all called rules. It also preserves the weighting. The rule names are separated by a `|` like this `[RULE1|RULE2]`.
+It is possible to produce call a comined production rule from defined production rules. The so created production rule containes all outcomes of all called rules. It also preserves the weighting. The rule names are separated by a vertical bar `|` like this `[RULE1|RULE2]`.
 
 ## Commands
-Forlog offers a list of commands that extend the simple replace mechanic. A command is called with pointy brackets `<` and `>`.
+Forlog offers a list of commands that extend the simple replace mechanic. A command is called with pointy brackets `<` and `>`. A command can have an outcome (like the `for` command) but doesn't have to (like the `set` command). The arguments given to a command are separated with a vertical bar `|`. The first argument is always the name of the command.  E.g. the command `<set|myvar|green>` sets the variable `myvar` to the value `green` and produces no outcome. The command `<for|3|bla>` produces the outcome `blablabla`.
+
+This is a list of all available commands in version 2.0:
+
+Command | Effect | Parameters
+--- | --- | ---
+`<for|n|do>` | repeats `do` for `n` times | `n` needs to be a non-negative integer
+`<rnd|min|max>` | produces a random integer between (incl.) `min` and (excl.) `max`. | `min` and `max` need to be integers
+`<eq|val1|val2|do>` or `<eq|val1|val2|do|else>` | if `val1` and `val2` are equal (string compare) it produces `do`; otherwise it produces `else`, if an `else` parameter is given | 
