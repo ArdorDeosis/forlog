@@ -67,6 +67,20 @@ Usually every outcome is picked with the same possibility. It is however possibl
 ### Combined Production Rules
 It is possible to produce call a comined production rule from defined production rules. The so created production rule containes all outcomes of all called rules. It also preserves the weighting. The rule names are separated by a vertical bar `|` like this `[RULE1|RULE2]`.
 
+
+## Variables
+Variables in Forlog are set by the `set` and `set?` commands (see [Commands](#commands)). A variable is called with curly brackets `{` and `}`. A variabel that is not set can not be called and produces an error. A valid variable name starts with an lower case letter and only contains letters, digits and the symbols `_`, `$`, `%`, `&`, `!` and `?`.
+```
+START_SYMBOL
+><set|color|[COLOR]>My favourite color is {color}, because {color} is beautiful.
+
+COLOR
+>red
+>green
+>blue
+```
+
+
 ## Commands
 Forlog offers a list of commands that extend the simple replace mechanic. A command is called with pointy brackets `<` and `>`. A command can have an outcome (like the `for` command) but doesn't have to (like the `set` command). The arguments given to a command are separated with a vertical bar `|`. The first argument is always the name of the command.  E.g. the command `<set|myvar|green>` sets the variable `myvar` to the value `green` and produces no outcome. The command `<for|3|bla>` produces the outcome `blablabla`.
 
@@ -92,18 +106,6 @@ Arguments in commands can, but don't have to be processed before the command is 
 This makes a difference especially for the `for` and `set` commands. While `<for|5|<rnd|0|100>\n>` will output the same number five times (because `<rnd|0|100>` is processed before the execution of the `for` command), `<for|5|~<rnd|0|100>\n>` will produce five (most likely) different numbers.
 
 
-## Variables
-Variables in Forlog are set by the `set` and `set?` commands. A variable is called with curly brackets `{` and `}`. A variabel that is not set can not be called and produces an error. A valid variable name starts with an lower case letter and only contains letters, digits and the symbols `_`, `$`, `%`, `&`, `!` and `?`.
-```
-START_SYMBOL
-><set|color|[COLOR]>My favourite color is {color}, because {color} is beautiful.
-
-COLOR
->red
->green
->blue
-```
-
 # Forlog API
 
 All functionality of the Forlog API is provided by the `ForlogGrammar` function. To use it, initialize a new instance with `new ForlorgGrammar()`. 
@@ -124,6 +126,16 @@ grammar.process("[MY_RULE]")                      // start with a custom rule
 grammar.process("My fancy string is [ADJECTIVE]") // or with a custom string
 ```
 
+## Properties
+The `ForlogGrammar` object provides the following functions to get information about the grammar
+
+`getCommands()` | returns all defined command functions
+`getRules()` | returns the defined rules
+`getSettings()` | returns the settings object
+`getVariables()` | returns the currently defined variables
+`getVersion()` | returns the current version
+
+
 ## Settings
 With `changeSettings(name, value)` the setting `name` can be set to `value`. Only valid settings will be accepted. The default settings are
 ```JavaScript
@@ -143,3 +155,12 @@ setting name | effect | valid values
 `logToConsole` | If set to `true`, error messages will be printed to the browser console. | `true`, `false`
 `errorReturnString` | Everytime an error occurs during the processing of a rule, variable call or command, this string is returned instead of the actual produced string. | any string value
 
+## Adding Custom Commands
+
+With `addCommand(name, func)` it is possible to add custom commands to a `ForlogGrammar`. When called, the arguments (without the command name) are given to the function as an array of strings. If the command has no outcome, it has to return an empty string `''`, otherwise the processor will write `'undefined'` as an outcome.
+```JavaScript
+grammar.addCommand('mycommand', myfunction);
+
+// '<mycommand|argument|100||ð>' will invoke the following 
+myfunction(["argument", "100", "", "ð"]);
+```
