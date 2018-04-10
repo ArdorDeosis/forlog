@@ -126,7 +126,7 @@ grammar.process("My fancy string is [ADJECTIVE]") // or with a custom string
 
 ## Settings
 With `changeSettings(name, value)` the setting `name` can be set to `value`. Only valid settings will be accepted. The default settings are
-```JSON
+```JavaScript
 {
   overrideRules: false,
   keepVariables: false,
@@ -135,7 +135,9 @@ With `changeSettings(name, value)` the setting `name` can be set to `value`. Onl
 }
 ```
 #### Valid Settings
+
 setting name | effect | valid values
+--- | --- | ---
 `overrideRules` | If set to `true`, all previously defined outcomes of a rule are deleted when the rule name is defined a second time.  | `true`, `false`
 `keepVariables` | If set to `true`, the variable memory is not cleared after an input has been processed. | `true`, `false`
 `logToConsole` | If set to `true`, error messages will be printed to the browser console. | `true`, `false`
