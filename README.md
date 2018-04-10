@@ -2,6 +2,8 @@
 Forlog is a script language to define formal grammars and this is a processor for such grammars. The idea behind Forlog is to provide a simple to use grammar processor for text generation.
 
 # Introduction to Forlog
+*This whole introduction can also be found at* [forlog.firespark.de](http://forlog.firespark.de/)*, accompanied by an online processor with graphical user interface and working examples (and hopefully soon with syntax highlighting).*
+
 Forlog has a context-free grammar as a basis extended by conditional and memory functionality (which takes away the *context-free* part). The backbone of every Forlog grammar are production rules. The default start symbol is `START_SYMBOL`.
 
 Forlog grammars are stored in `*.flg` files (**F**or**l**og **g**rammar).
