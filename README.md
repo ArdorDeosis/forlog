@@ -29,13 +29,30 @@ FOOD              // set rule name to 'FOOD'
 >pizza            // add outcome to 'FOOD'
 
 OTHER_RULE        // set rule name to 'OTHER_RULE'
->other outcome   // add outcome to 'OTHER_RULE'
+>other outcome    // add outcome to 'OTHER_RULE'
 
 FOOD              // set rule to 'FOOD' again
 >steak            // add more outcomes to rule 'FOOD'
 ...
 ```
-By default, the outcome 'pizza' is not deleted when the current rule name is set to `FOOD` again. This behaviour can however be altered in the settings (see ). 
+**Note**: Empty lines are ignored.
+
+By default, the outcome 'pizza' is not deleted when the current rule name is set to `FOOD` again. This behaviour can however be altered in the settings (see [#settings](Settings)). An example case in which this behaviour is useful would be the following:
+
+A Forlog grammar is composed to generate descriptions of local flora and fauna. To do that it uses (among others) a Rule `ANIMAL`, e.g. `>[ANIMALS]s are common in this area.` To adjust these to different situations, in which not all animals may be suited, different forlog files with different definitions for the `ANIMAL` rule can be defined and parsed as needed. 
+```
+// in cats.flg
+ANIMAL
+>lion
+>puma
+>jaguar
+
+// in ancient.flg
+ANIMAL
+>raptor
+>mammoth
+>trilobite
+```
 
 A rule can be called with square brackets `[` and `]`.
 ```
@@ -93,8 +110,18 @@ All functionality of the Forlog API is provided by the `ForlogGrammar` function.
 ```
 let grammar = new ForlogGrammar();
 ```
-The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `.parseGrammar()`.
+The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `parseGrammar()`.
 ```
-let forlogString = // however you obtain the string, e.g. from a file
+let forlogString = // black magic to obtain the string, e.g. from a file
 grammar.parseGrammar(forlogString);
 ```
+To process the compiled grammar, call `process()`. If called without any parameter, the process automatically starts with the start symbol rule `[START_SYMBOL]`. A custom starting string can be given to the function.
+```
+grammar.process()
+grammar.process("[START_SYMBOL]")  // these two lines produce the same output
+
+grammar.process("[MY_RULE]")                      // start with a custom rule
+grammar.process("My fancy string is [ADJECTIVE]") // or with a custom string
+```
+
+## Settings
