@@ -110,7 +110,7 @@ All functionality of the Forlog API is provided by the `ForlogGrammar` function.
 ```JavaScript
 let grammar = new ForlogGrammar();
 ```
-The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `parseGrammar()`.
+The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `parseGrammar(forlogString)`.
 ```JavaScript
 let forlogString = // black magic to obtain the string, e.g. from a file
 grammar.parseGrammar(forlogString);
@@ -125,3 +125,19 @@ grammar.process("My fancy string is [ADJECTIVE]") // or with a custom string
 ```
 
 ## Settings
+With `changeSettings(name, value)` the setting `name` can be set to `value`. Only valid settings will be accepted. The default settings are
+```JSON
+{
+  overrideRules: false,
+  keepVariables: false,
+  logToConsole: true,
+  errorReturnString: 'ERROR'
+}
+```
+#### Valid Settings
+setting name | effect | valid values
+`overrideRules` | If set to `true`, all previously defined outcomes of a rule are deleted when the rule name is defined a second time.  | `true`, `false`
+`keepVariables` | If set to `true`, the variable memory is not cleared after an input has been processed. | `true`, `false`
+`logToConsole` | If set to `true`, error messages will be printed to the browser console. | `true`, `false`
+`errorReturnString` | Everytime an error occurs during the processing of a rule, variable call or command, this string is returned instead of the actual produced string. | any string value
+
