@@ -1,7 +1,7 @@
 # Forlog
 Forlog is a script language to define formal grammars and this is a processor for such grammars. The idea behind Forlog is to provide a simple to use grammar processor for text generation.
 
-## Introduction to Forlog
+# Introduction to Forlog
 Forlog has a context-free grammar as a basis extended by conditional and memory functionality (which takes away the *context-free* part). The backbone of every Forlog grammar are production rules. The default start symbol is `START_SYMBOL`.
 
 Forlog grammars are stored in `*.flg` files (**F**or**l**og **g**rammar).
@@ -23,6 +23,19 @@ FOOD
 >steak
 >noodles
 ```
+Rules don't have to be set in one contiguous block (although it is recommended to do so for readability). The same rule name can simply be called again:
+```
+FOOD              // set rule name to 'FOOD'
+>pizza            // add outcome to 'FOOD'
+
+OTHER_RULE        // set rule name to 'OTHER_RULE'
+>other outcome   // add outcome to 'OTHER_RULE'
+
+FOOD              // set rule to 'FOOD' again
+>steak            // add more outcomes to rule 'FOOD'
+...
+```
+By default, the outcome 'pizza' is not deleted when the current rule name is set to `FOOD` again. This behaviour can however be altered in the settings (see ). 
 
 A rule can be called with square brackets `[` and `]`.
 ```
@@ -57,7 +70,9 @@ Command | Effect | Parameters
 Unlike production rules, commands can be nested: `<for|<rnd|5|10>|[FANCY_RULE]>`
 
 ### Preprocessing of Arguments
-Arguments in commands can be either processed before the command is executed or not. In any case, the complete outcome of the command is processed afterwards. By default every argument is preprocessed. If an argument should not be processed before the execution of the command, a tilde `~` has to be placed before it. This makes a difference especially for the `for` and `set` commands. While `<for|5|<rnd|0|100>\n>` will output the same number five times (because `<rnd|0|100>` is processed before the execution of the `for` command), `<for|5|~<rnd|0|100>\n>` will produce five (most likely) different numbers.
+Arguments in commands can, but don't have to be processed before the command is executed. By default every argument is preprocessed. If an argument should not be processed before the execution of the command, a tilde `~` has to be placed before it. In any case, the complete outcome of the command is processed afterwards.
+
+This makes a difference especially for the `for` and `set` commands. While `<for|5|<rnd|0|100>\n>` will output the same number five times (because `<rnd|0|100>` is processed before the execution of the `for` command), `<for|5|~<rnd|0|100>\n>` will produce five (most likely) different numbers.
 
 
 ## Variables
@@ -70,4 +85,16 @@ COLOR
 >red
 >green
 >blue
+```
+
+# Forlog API
+
+All functionality of the Forlog API is provided by the `ForlogGrammar` function. To use it, initialize a new instance with `new ForlorgGrammar()`. 
+```
+let grammar = new ForlogGrammar();
+```
+The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `.parseGrammar()`.
+```
+let forlogString = // however you obtain the string, e.g. from a file
+grammar.parseGrammar(forlogString);
 ```
