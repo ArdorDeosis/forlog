@@ -37,7 +37,7 @@ FOOD              // set rule to 'FOOD' again
 ```
 **Note**: Empty lines are ignored.
 
-By default, the outcome 'pizza' is not deleted when the current rule name is set to `FOOD` again. This behaviour can however be altered in the settings (see [#settings](Settings)). An example case in which this behaviour is useful would be the following:
+By default, the outcome 'pizza' is not deleted when the current rule name is set to `FOOD` again. This behaviour can however be altered in the settings (see [Settings](#Settings)). An example case in which this behaviour is useful would be the following:
 
 A Forlog grammar is composed to generate descriptions of local flora and fauna. To do that it uses (among others) a Rule `ANIMAL`, e.g. `>[ANIMALS]s are common in this area.` To adjust these to different situations, in which not all animals may be suited, different forlog files with different definitions for the `ANIMAL` rule can be defined and parsed as needed. 
 ```
