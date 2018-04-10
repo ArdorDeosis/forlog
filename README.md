@@ -107,16 +107,16 @@ COLOR
 # Forlog API
 
 All functionality of the Forlog API is provided by the `ForlogGrammar` function. To use it, initialize a new instance with `new ForlorgGrammar()`. 
-```
+```JavaScript
 let grammar = new ForlogGrammar();
 ```
 The grammar is now empty and in a default state. To fill it, it has to parse one or more Forlog strings with `parseGrammar()`.
-```
+```JavaScript
 let forlogString = // black magic to obtain the string, e.g. from a file
 grammar.parseGrammar(forlogString);
 ```
 To process the compiled grammar, call `process()`. If called without any parameter, the process automatically starts with the start symbol rule `[START_SYMBOL]`. A custom starting string can be given to the function.
-```
+```JavaScript
 grammar.process()
 grammar.process("[START_SYMBOL]")  // these two lines produce the same output
 
