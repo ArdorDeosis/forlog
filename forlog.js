@@ -82,9 +82,7 @@ function ForlogGrammar() {
       return '';
     },
     'eq': function(args) {
-      if (!commandUtils.hasEnoughArguments('eq', 3, args.length) ||
-          !commandUtils.isInt('eq', args[0]) ||
-          !commandUtils.isInt('eq', args[1])) {
+      if (!commandUtils.hasEnoughArguments('eq', 3, args.length)) {
         return settings.errorReturnString;
       }
       if (args[0] == args[1]) {
@@ -100,7 +98,7 @@ function ForlogGrammar() {
           !commandUtils.isInt('lt', args[1])) {
         return settings.errorReturnString;
       }
-      if (args[0] < args[1]) {
+      if (parseInt(args[0]) < parseInt(args[1])) {
         return args[2];
       } else if (args.length > 3) {
         return args[3];
@@ -113,7 +111,7 @@ function ForlogGrammar() {
           !commandUtils.isInt('leq', args[1])) {
         return settings.errorReturnString;
       }
-      if (args[0] <= args[1]) {
+      if (parseInt(args[0]) <= parseInt(args[1])) {
         return args[2];
       } else if (args.length > 3) {
         return args[3];
@@ -126,7 +124,7 @@ function ForlogGrammar() {
           !commandUtils.isInt('gt', args[1])) {
         return settings.errorReturnString;
       }
-      if (args[0] > args[1]) {
+      if (parseInt(args[0]) > parseInt(args[1])) {
         return args[2];
       } else if (args.length > 3) {
         return args[3];
@@ -139,7 +137,7 @@ function ForlogGrammar() {
           !commandUtils.isInt('geq', args[1])) {
         return settings.errorReturnString;
       }
-      if (args[0] >= args[1]) {
+      if (parseInt(args[0]) >= parseInt(args[1])) {
         return args[2];
       } else if (args.length > 3) {
         return args[3];
@@ -156,8 +154,8 @@ function ForlogGrammar() {
     'rnd': function(args) {
       if (!commandUtils.hasEnoughArguments('rnd', 2, args.length) ||
           !commandUtils.isInt('rnd', args[0]) ||
-          !commandUtils.isInt('rnd', args[0])) {
-        return Array(parseInt(args[0])).fill(args[1]).join('');
+          !commandUtils.isInt('rnd', args[1])) {
+        return Math.floor(parseInt(args[0]) + (Math.random() * (parseInt(args[1]) - parseInt(args[0]))));
       }
       return settings.errorReturnString;
     }
@@ -170,10 +168,10 @@ function ForlogGrammar() {
 
   // FUNCTIONS
 
-  this.compileGrammar = compileGrammar;
+  this.parseGrammar = parseGrammar;
 
-  function compileGrammar(input) {
-    console.groupCollapsed('compiling Forlog grammar');
+  function parseGrammar(input) {
+    if (settings.logToConsole) { console.groupCollapsed('compiling Forlog grammar'); }
     let warningCounter = 0;
     let currentRule = 'START_SYMBOL';
 
@@ -221,7 +219,7 @@ function ForlogGrammar() {
       log(`line ${i} can not be parsed and is ignored.\nLine ${i}: %c${line.substr(0, 24)}${line.length > 24 ? '...' : ''}`);
     }
     log(`finished compiling; found ${warningCounter} unparsable lines`);
-    console.groupEnd();
+    if (settings.logToConsole) { console.groupEnd(); }
   }
 
 
@@ -383,7 +381,8 @@ function ForlogGrammar() {
   
   
   
-  function setSetting (name, value) {
+  this.changeSettings = changeSettings;
+  function changeSettings (name, value) {
     let validSettings = {
       overrideRules: [true, false],
       keepVariables: [true, false],
